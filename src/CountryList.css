@@ -1,0 +1,32 @@
+.country-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .country-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 150px;
+  }
+  
+  .country-flag {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  
+  .country-name {
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+  }
+  

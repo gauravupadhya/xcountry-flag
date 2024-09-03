@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import CountryList from './CountryList.jsx';
+import CountryList from '../CountryList.jsx';
 
 function App() {
   return (
