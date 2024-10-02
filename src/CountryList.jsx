@@ -2,9 +2,11 @@
 import axios from "axios";
 import './CountryList.css';
 import { useEffect, useState } from "react";
+
 const App = () => {
   const [search, setSearch] = useState("");
   const [countries, setCountries] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     fetchCountries();
@@ -14,14 +16,20 @@ const App = () => {
     try {
       const response = await axios.get("https://restcountries.com/v3.1/all");
       setCountries(response.data);
+      setLoading(false); // Set loading to false after data is fetched
     } catch (error) {
-      console.error("something is wrong", error);
+      console.error("Something went wrong", error);
+      setLoading(false); // Handle loading in case of error
     }
   };
 
   const filteredCountries = countries.filter((country) =>
     country.name.common.toLowerCase().includes(search.toLowerCase())
   );
+
+  if (loading) {
+    return <div>Loading...</div>; // Show a loading indicator until data is fetched
+  }
 
   return (
     <div>
@@ -34,18 +42,22 @@ const App = () => {
       ></input>
 
       <div className="countryGrid">
-        {filteredCountries.map((country) => {
-          return (
-            <div key={country.cca3} className="countryCard">
-              <img
-                src={country.flags.png}
-                alt={country.name.common}
-                className="flag"
-              />
-              <p className="countryName">{country.name.common}</p>
-            </div>
-          );
-        })}
+        {filteredCountries.length > 0 ? (
+          filteredCountries.map((country) => {
+            return (
+              <div key={country.cca3} className="countryCard">
+                <img
+                  src={country.flags.png}
+                  alt={country.name.common}
+                  className="flag"
+                />
+                <p className="countryName">{country.name.common}</p>
+              </div>
+            );
+          })
+        ) : (
+          <p>No countries found.</p>
+        )}
       </div>
     </div>
   );
