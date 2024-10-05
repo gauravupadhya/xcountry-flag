@@ -1,4 +1,3 @@
-/** @format */
 import axios from "axios";
 import './CountryList.css';
 import { useEffect, useState } from "react";
@@ -6,7 +5,7 @@ import { useEffect, useState } from "react";
 const App = () => {
   const [search, setSearch] = useState("");
   const [countries, setCountries] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchCountries();
@@ -16,10 +15,10 @@ const App = () => {
     try {
       const response = await axios.get("https://restcountries.com/v3.1/all");
       setCountries(response.data);
-      setLoading(false); // Set loading to false after data is fetched
+      setLoading(false);
     } catch (error) {
       console.error("Something went wrong", error);
-      setLoading(false); // Handle loading in case of error
+      setLoading(false);
     }
   };
 
@@ -28,7 +27,7 @@ const App = () => {
   );
 
   if (loading) {
-    return <div>Loading...</div>; // Show a loading indicator until data is fetched
+    return <div>Loading...</div>;
   }
 
   return (
