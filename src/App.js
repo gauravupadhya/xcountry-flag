@@ -1,28 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import './App.css'; // Assuming you have the CSS file for styling
+import './App.css';
 
 const App = () => {
   const [countries, setCountries] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  // Fetching data from the API on component mount
+
   useEffect(() => {
     const fetchCountries = async () => {
       try {
         const response = await fetch('https://restcountries.com/v3.1/all');
         const data = await response.json();
         setCountries(data);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching countries:', error);
+        setLoading(false); 
       }
     };
     fetchCountries();
   }, []);
 
-  // Filter countries based on the search query
+
   const filteredCountries = countries.filter((country) =>
     country.name.common.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+
+  if (loading) {
+    return <div className="loading">Loading countries...</div>;
+  }
 
   return (
     <div className="app">
@@ -45,7 +53,7 @@ const App = () => {
                 alt={`Flag of ${country.name.common}`}
                 className="flag"
               />
-              <p>{country.name.common}</p>
+              <p className="countryName">{country.name.common}</p>
             </div>
           ))
         ) : (
